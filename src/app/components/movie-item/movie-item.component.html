@@ -1,0 +1,49 @@
+<div class="card shadow-sm d-flex">
+  <div class="poster-container">
+    <img [src]="movie.Poster" [alt]="movie.Title">
+  </div>
+  <div class="details-container d-flex">
+    <div class="card-body">
+      <h5 class="card-title">{{movie.Title}}</h5>
+      <ng-container *ngIf="expanded">
+        <ng-container *ngIf="!!movie.details; else loading">
+          <div class="movie-details" *ngIf="!movie.noDetailsFound; else noDetailsFound">
+            <div class="movie-detail">
+              <i class="detail-title">Plot</i>
+              <p>{{movie.details.Plot}}</p>
+            </div>
+            <div class="movie-detail">
+              <i class="detail-title">Actors</i>
+              <p>{{movie.details.Actors}}</p>
+            </div>
+            <div class="movie-detail">
+              <i class="detail-title">Ratings</i>
+              <ng-container *ngFor="let rating of movie.details.Ratings">
+                <div class="ratings-list">
+                  <p>
+                    {{rating.Source}}
+                    {{rating.Value}}
+                  </p>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+          <ng-template #noDetailsFound>
+            <p>Movie details not found...</p>
+          </ng-template>
+        </ng-container>
+      </ng-container>
+    </div>
+    <div class="card-footer">
+      <div class="d-flex justify-content-between">
+        <p class="movie-year">{{movie.Year}}</p>
+        <input *ngIf="!expanded" type="button" value="Details" class="btn btn-primary" (click)="expandDetails()"/>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #loading>
+  <app-spinner></app-spinner>
+</ng-template>
+

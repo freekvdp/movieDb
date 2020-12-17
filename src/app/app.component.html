@@ -1,0 +1,16 @@
+<app-header (searchValue)="onSearchMovies($event)"></app-header>
+
+<div class="content-container d-flex">
+  <ng-container [ngSwitch]="searchState">
+    <app-movie-list
+      *ngSwitchCase="'results'"
+      [movies]="movieResults | async"
+    ></app-movie-list>
+    <div *ngSwitchCase="'error'" class="alert alert-danger" role="alert">
+      No movies found
+    </div>
+    <div *ngSwitchDefault class="alert alert-secondary" role="alert">
+      Welcome to OMDB Search, search for a movie in the bar above !
+    </div>
+  </ng-container>
+</div>

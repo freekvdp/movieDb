@@ -1,0 +1,11 @@
+<div class="list-container">
+  <app-movie-item
+    class="list-item"
+    *ngFor="let movie of movies"
+    [class.expanded]="movie.details !== undefined"
+    [movie]="movie"
+    (expand)="getMovieDetails($event)"
+  >
+  </app-movie-item>
+</div>
+
